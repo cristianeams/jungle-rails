@@ -12,7 +12,7 @@ class OrdersController < ApplicationController
 
     if order.valid?
       empty_cart!
-      # Tells user mailer to send a confirmtion email after an order has been placed
+      # Tells user mailer to send a confirmation email after an order has been placed
       UserMailer.order_email(user: current_user, order: order).deliver_now
       redirect_to order, notice: 'Your Order has been placed.'
     else
