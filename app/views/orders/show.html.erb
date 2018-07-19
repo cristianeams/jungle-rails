@@ -6,6 +6,31 @@
 
   <div class="order-summary jumbotron">
     <h4>Thank you for your order!</h4>
+    <p>Total of items: <%= @order.line_items.size %></p>
+    <table class="table table-bordered">
+      <% @order.line_items.each do |li| %>
+      <% @thisOrder = LineItem.find(li) %>
+      <% @product = Product.find(@thisOrder.product_id) %>
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Description<th>
+        </tr>
+      </thead>
+      <tbody>
+        <td><img src="<%= @product.image %>" class="tiny-img"/></td>
+        <td><%= @product.name %></td>
+        <td><%= @product.quantity %> </td>
+        <td><%= number_to_currency @thisOrder.total_price_cents / 100 %> </td>
+        <td><%= @product.description %></td>
+        <% end %>
+      </tbody>
+    </table>
+    <p>Final Amount: <%= number_to_currency @order.total_cents / 100 %></p>
+    <p>Order placed by: <%= @order.email %> </p>
   </div>
 
   <%= link_to "Continue Shopping", root_path, class: 'btn btn-lg btn-primary' %>
