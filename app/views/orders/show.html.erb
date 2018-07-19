@@ -23,7 +23,7 @@
       <tbody>
         <td><img src="<%= @product.image %>" class="tiny-img"/></td>
         <td><%= @product.name %></td>
-        <td><%= @product.quantity %> </td>
+        <td><%= @thisOrder.quantity %> </td>
         <td><%= number_to_currency @thisOrder.total_price_cents / 100 %> </td>
         <td><%= @product.description %></td>
         <% end %>

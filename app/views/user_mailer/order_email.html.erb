@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Thank you for your shopping with us!</h1>
+    <table class="table table-bordered">
+      <% @order.line_items.each do |li| %>
+      <% @thisOrder = LineItem.find(li) %>
+      <% @product = Product.find(@thisOrder.product_id) %>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <td><%= @product.name %></td>
+        <td><%= @thisOrder.quantity %> </td>
+        <td><%= number_to_currency @thisOrder.total_price_cents / 100 %> </td>
+        <% end %>
+      </tbody>
+    </table>
+  </body>
+</html>

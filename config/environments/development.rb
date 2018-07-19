@@ -40,4 +40,15 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   config.web_console.whitelisted_ips = ['10.0.2.0/24']
+  config.action_mailer.preview_path  = "#{Rails.root}/lib/mailer_previews"
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :user_name => '3e92624bd04e6e',
+    :password => '2afaf2de36abb1',
+    :address => 'smtp.mailtrap.io',
+    :domain => 'smtp.mailtrap.io',
+    :port => '2525',
+    :authentication => :cram_md5
+  }
+
 end
