@@ -132,5 +132,22 @@ cat3.products.create!({
   price: 2_483.75
 })
 
+# USERS
+user1 = User.find_or_create_by! name: 'Test', email: 'test@test.com', password_digest: '123'
+user2 = User.find_or_create_by! name: 'Juca', email: 'juca@j.com', password_digest: '123'
+
+
+# REVIEWS
+user1.reviews.create!({
+ product_id: Product.first,
+ description: "The fabric is horrible! I have rashes all over my back",
+ rating: 2
+})
+
+user2.reviews.create!({
+ product_id: Product.last,
+ description: "It is decent",
+ rating: 4
+})
 
 puts "DONE!"
