@@ -24,8 +24,60 @@
           <dd><%= @product.price %></dd>
         </dl>
       </div>
+      </div>
+
+    
+      <div class="container">
+        <h2 class="blue">Customer reviews</h2>
+        <% @product.reviews.reorder('created_at').reverse_order.each do |rating| %>
+        <div class="jumbotron">
+          <div class="row vert-align">
+            <div class="col col-lg-2">
+              <h4>Rating</h4>
+            </div>
+            <div class="col col-lg-2 aln">
+              <%= rating.rating %>/5
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-lg-2">
+              <% if rating.description.blank? %>
+                <p>This product does not have any reviews.</p>
+              <% else %>
+                <h4>Description</h4>
+            </div>
+            <div class="col col-lg-2 aln">
+              <%= rating.description %>
+            </div>
+          </div>
+          <% if current_user && rating.user_id == current_user.id %>
+        <%= button_to("Delete", "#{@product.id}/reviews/#{rating.id}", method: 'delete', class: 'btn btn-danger') %>
+        <% end %>  
+        <% end %>   
+        </div>
+        <% end %>
+      </div>
+      
+      <h3 class="blue">Write a customer review</h3>
+      <div class="row">
+        <% if !current_user %>
+        Please login to write a review
+        <% else %>
+        <div class="col-sm-8" >
+          <%= form_tag("./#{@product.id}/reviews", method:'post') do %>
+          <div class="form-group">
+            <label for="rating">Rating</label>
+            <%= select_tag(:rating, options_for_select([[1],[2],[3],[4],[5]]), class: 'form-control') %>
+          </div>
+          <div class="form-group" >
+            <label for="message">Description</label>
+            <%= text_area_tag(:message, nil, class: 'form-control') %>
+            <%= submit_tag("Submit", class: 'btn btn-primary space') %>
+          </div>
+        <% end %>
+        </div>
+      </div>
     </div>
-
   </article>
-
+  <% end %>
 </section>
